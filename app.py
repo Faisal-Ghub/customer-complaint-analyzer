@@ -8,8 +8,9 @@ from groq import Groq
 
 
 # ---- Credentials via st.secrets ----
-GROQ_API_KEY = "dummy"
-N8N_WEBHOOK_URL = "dummy"
+# Read keys from Streamlit Cloud secrets
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+N8N_WEBHOOK_URL = st.secrets["N8N_WEBHOOK_URL"]
 
 client = Groq(api_key=GROQ_API_KEY)
 
