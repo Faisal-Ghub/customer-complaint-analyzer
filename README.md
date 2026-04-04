@@ -28,24 +28,26 @@ They escalate critical cases to managers.
 They manually draft escalation emails.
 Operational Challenges
 Problem	Impact
-Manual complaint reading	High operational effort
-Inconsistent categorization	Poor data standardization
+Manual complaint reading high operational effort
+Inconsistent categorization poor data standardization
 Delayed escalation	Slower issue resolution
-Human dependency	Limited scalability
-Unstructured complaint data	Hard to analyze trends
+Human dependency limited scalability
+Unstructured complaint data hard to analyze trends
 
 For organizations processing hundreds of complaints, this results in slow response times and high operational cost.
 
 ---
 
-##💡 Solution
+## 💡 Solution
 
 The AI-Powered Customer Complaint Analyzer automates the entire complaint triage process.
 
 The system:
 
 1️⃣ Extracts text from complaint PDFs
+
 2️⃣ Uses a Large Language Model (LLM) to analyze the complaint
+
 3️⃣ Converts unstructured text into structured JSON insights
 4️⃣ Identifies complaint category, urgency, and risk level
 5️⃣ Triggers automated escalation workflows
@@ -53,22 +55,29 @@ The system:
 
 All analysis and escalation happens within seconds without manual intervention.
 
-⚙️ System Architecture
+---
+
+## ⚙️ System Architecture
 User Uploads Complaint
         │
         ▼
+        
 Streamlit Web Application
         │
         ▼
+        
 PDF Text Extraction (pdfplumber)
         │
         ▼
+        
 LLM Analysis (Groq - LLaMA 3.3)
         │
         ▼
+        
 Structured JSON Output
         │
         ▼
+        
 n8n Workflow Automation
         │
         ├── AI Complaint Analysis
@@ -77,7 +86,10 @@ n8n Workflow Automation
         └── Email Notification
         ▼
 Manager Alert
-🔄 n8n Automation Workflow
+
+--- 
+
+## 🔄 n8n Automation Workflow
 
 Below is the workflow used to orchestrate the automation process.
 
@@ -106,13 +118,15 @@ Formats the final response.
 7️⃣ Respond to Webhook
 Returns results back to the Streamlit UI.
 
-## 🔄 n8n Automation Workflow
+
 
 Below is the workflow used to orchestrate the automation process.
 
 ![n8n workflow](images/n8n_workflow.png)
 
-🔍 Application Workflow
+--- 
+
+## 🔍 Application Workflow
 Step 1 — Upload Complaint
 
 Users upload one or more complaint PDFs through the Streamlit web interface.
@@ -168,7 +182,7 @@ The application displays four outputs returned by the workflow:
 3️⃣ Generated email body
 4️⃣ Email send status (SENT / NOT SENT)
 
-🧠 Tech Stack
+## 🧠 Tech Stack
 Layer	Technology
 Frontend	Streamlit
 Backend	Python
