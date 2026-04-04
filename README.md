@@ -1,151 +1,286 @@
-# 🧾 Customer Complaint Analyzer
+🧾 AI-Powered Customer Complaint Analyzer
 
-An end-to-end AI-powered web application that reads customer complaint PDFs, understands them using a large language model, and automatically alerts the right people via email — all without writing a single line of manual logic for the analysis.
+An end-to-end AI automation system that converts unstructured customer complaint documents into structured insights and automatically triggers escalation workflows.
 
----
+The application uses Generative AI and workflow automation to analyze complaint documents, identify risk levels, and notify managers instantly—eliminating manual complaint triage.
 
-## What This Project Does
+This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipelines.
 
-Most businesses receive complaints in unstructured formats — emails, PDFs, scanned letters. Someone has to read each one, figure out how serious it is, and decide whether to escalate it. This project automates that entire process.
+🎯 Business Problem
 
-You upload a complaint PDF. The app reads it, sends it to an AI model, and gets back a structured understanding of the complaint — what category it falls under, how urgent it is, and a plain-English summary. If the complaint is serious enough, the system can automatically draft and send an alert email to a manager.
+Organizations receive customer complaints in unstructured formats such as:
 
----
+PDFs
+Emails
+Web form submissions
+Scanned documents
 
-## How It Works (Plain English)
+Handling these complaints typically requires manual review by support staff.
 
-### Step 1 — Upload the Complaint
-The user uploads one or more complaint PDFs through the web interface. The app extracts all the readable text from each file using a PDF parsing library.
+Traditional Complaint Handling Workflow
+Support staff reads each complaint.
+They interpret the issue manually.
+They categorize the complaint.
+They assess urgency.
+They escalate critical cases to managers.
+They manually draft escalation emails.
+Operational Challenges
+Problem	Impact
+Manual complaint reading	High operational effort
+Inconsistent categorization	Poor data standardization
+Delayed escalation	Slower issue resolution
+Human dependency	Limited scalability
+Unstructured complaint data	Hard to analyze trends
 
-### Step 2 — AI Analysis
-The extracted text is sent to a Groq-hosted LLaMA 3.3 model (a large language model). The model is given a specific instruction: analyze this complaint and return a structured JSON response with four fields — complaint category, priority level, a short summary, and risk level.
+For organizations processing hundreds of complaints, this results in slow response times and high operational cost.
 
-The app parses this JSON and displays the results directly in the UI. High-priority complaints are flagged with a red warning.
+💡 Solution
 
-### Step 3 — Structured Table
-All analyzed complaints are compiled into a clean table (a pandas DataFrame) showing the order ID, customer name, issue type, AI category, priority, and summary. The user can download this table as a CSV file.
+The AI-Powered Customer Complaint Analyzer automates the entire complaint triage process.
 
-### Step 4 — Manager Alert via n8n
-The user enters a manager's email address and clicks "Send Alert Mail." This triggers a POST request to an n8n workflow via a webhook. The n8n workflow:
-- Receives the complaint data
-- Runs its own AI agent analysis
-- Checks a condition (e.g., is this High priority?)
-- If yes: drafts an alert email and sends it
-- Returns the final answer, email body, and send status back to the Streamlit app
+The system:
 
-### Step 5 — Four Final Outputs
-The app displays four clearly labeled outputs from the n8n response:
-1. The structured JSON data extracted from the complaint
-2. The final analytical answer from the n8n AI agent
-3. The generated email body
-4. The email send status (SENT or NOT SENT)
+1️⃣ Extracts text from complaint PDFs
+2️⃣ Uses a Large Language Model (LLM) to analyze the complaint
+3️⃣ Converts unstructured text into structured JSON insights
+4️⃣ Identifies complaint category, urgency, and risk level
+5️⃣ Triggers automated escalation workflows
+6️⃣ Drafts and sends AI-generated alert emails
 
----
+All analysis and escalation happens within seconds without manual intervention.
 
-## Tech Stack
+⚙️ System Architecture
+User Uploads Complaint
+        │
+        ▼
+Streamlit Web Application
+        │
+        ▼
+PDF Text Extraction (pdfplumber)
+        │
+        ▼
+LLM Analysis (Groq - LLaMA 3.3)
+        │
+        ▼
+Structured JSON Output
+        │
+        ▼
+n8n Workflow Automation
+        │
+        ├── AI Complaint Analysis
+        ├── Priority Decision Logic
+        ├── Email Draft Generation
+        └── Email Notification
+        ▼
+Manager Alert
+🔄 n8n Automation Workflow
 
-| Layer | Tool |
-|---|---|
-| Frontend / UI | Streamlit |
-| PDF Parsing | pdfplumber |
-| AI / LLM | Groq API (LLaMA 3.3 70B) |
-| Workflow Automation | n8n (self-hosted or cloud) |
-| Data Handling | pandas |
-| HTTP Requests | requests |
-| Deployment | Streamlit Cloud |
+Below is the workflow used to orchestrate the automation process.
 
----
+It receives complaint data from the Streamlit application, performs AI-driven analysis, evaluates escalation conditions, generates an email, and sends alerts automatically.
 
-## Project Structure
+Workflow Logic
 
-```
-customer-complaint-analyzer/
+1️⃣ Webhook Trigger
+Receives complaint data from the Streamlit application.
+
+2️⃣ AI Agent — Complaint Analysis
+Analyzes the structured complaint data and extracts insights.
+
+3️⃣ IF Node — Priority Decision
+Evaluates whether the complaint meets escalation criteria.
+
+4️⃣ AI Agent — Email Draft Generator
+Generates a professional escalation email.
+
+5️⃣ Email Node
+Sends the alert email to the manager.
+
+6️⃣ Set Node
+Formats the final response.
+
+7️⃣ Respond to Webhook
+Returns results back to the Streamlit UI.
+
+## 🔄 n8n Automation Workflow
+
+Below is the workflow used to orchestrate the automation process.
+
+![n8n workflow](images/n8n_workflow.png)
+
+🔍 Application Workflow
+Step 1 — Upload Complaint
+
+Users upload one or more complaint PDFs through the Streamlit web interface.
+
+The system extracts readable text using pdfplumber.
+
+Step 2 — AI Complaint Analysis
+
+The extracted complaint text is sent to a Groq-hosted LLaMA 3.3 70B model.
+
+The model returns structured data in JSON format:
+
+{
+ "Complaint Category": "",
+ "Priority": "",
+ "Short Summary": "",
+ "Risk Level": ""
+}
+
+This converts unstructured text into structured business intelligence.
+
+Step 3 — Structured Complaint Dataset
+
+All complaints are compiled into a structured dataset using Pandas.
+
+Field	Description
+Order ID	Order reference
+Customer Name	Complaint owner
+Issue Type	Original issue
+Complaint Category	AI classification
+Priority	High / Medium / Low
+Risk Level	Risk assessment
+Summary	AI generated summary
+
+Users can download the dataset as a CSV file for reporting or analytics.
+
+Step 4 — Automated Escalation
+
+When the complaint priority is High, the system triggers an n8n workflow via webhook.
+
+The workflow:
+
+Validates the complaint
+Drafts an escalation email
+Sends an alert to the manager
+Returns the final response to the application
+Step 5 — Final Outputs
+
+The application displays four outputs returned by the workflow:
+
+1️⃣ Structured complaint JSON
+2️⃣ AI analytical response
+3️⃣ Generated email body
+4️⃣ Email send status (SENT / NOT SENT)
+
+🧠 Tech Stack
+Layer	Technology
+Frontend	Streamlit
+Backend	Python
+PDF Parsing	pdfplumber
+AI Model	Groq API (LLaMA 3.3 70B)
+Workflow Automation	n8n
+Data Processing	pandas
+API Requests	requests
+Deployment	Streamlit Cloud
+📂 Project Structure
+customer-complaint-analyzer
 │
-├── app.py               # Main Streamlit application
-├── requirements.txt     # Python dependencies
-└── README.md            # This file
-```
-
----
-
-## Setup & Deployment
-
-### 1. Clone the Repository
-
-```bash
+├── app.py
+├── requirements.txt
+├── README.md
+│
+└── images
+    └── n8n_workflow.png
+🚀 Deployment
+Clone Repository
 git clone https://github.com/Faisal-Ghub/customer-complaint-analyzer.git
 cd customer-complaint-analyzer
-```
-
-### 2. Install Dependencies
-
-```bash
+Install Dependencies
 pip install -r requirements.txt
-```
+Configure Secrets
 
-### 3. Configure Secrets (Local)
+Create a .streamlit/secrets.toml file:
 
-Create a `.streamlit/secrets.toml` file locally (do **not** push this to GitHub):
-
-```toml
-GROQ_API_KEY = "your_groq_api_key_here"
-N8N_WEBHOOK_URL = "your_n8n_production_webhook_url_here"
-```
-
-### 4. Run Locally
-
-```bash
+GROQ_API_KEY = "your_groq_api_key"
+N8N_WEBHOOK_URL = "your_n8n_webhook_url"
+Run Application
 streamlit run app.py
-```
+Deploy to Streamlit Cloud
+Push repository to GitHub
+Connect repo to Streamlit Cloud
+Add secrets in the Streamlit dashboard
+Application deploys automatically
+📊 Business Impact
 
-### 5. Deploy to Streamlit Cloud
+The automation significantly reduces manual effort and improves response time.
 
-1. Push `app.py` and `requirements.txt` to your GitHub repository
-2. Go to [share.streamlit.io](https://share.streamlit.io) and connect your repo
-3. After deployment, open **Manage App → Settings → Secrets**
-4. Paste your secrets in TOML format and save
-5. The app will reboot automatically with credentials loaded securely
+Traditional Process
+Step	Avg Time
+Read complaint	2 min
+Understand issue	1 min
+Categorize complaint	1 min
+Draft escalation email	2 min
 
-> ⚠️ All credentials are stored via the Streamlit Cloud secrets dashboard.
+Total ≈ 6 minutes per complaint
 
----
+Automated Process
+Step	Time
+Upload complaint	10 seconds
+AI analysis	5 seconds
+Workflow automation	3 seconds
 
-## n8n Workflow Setup
+Total ≈ 18 seconds
 
-The backend automation runs on n8n. Here is how the workflow is structured:
+⏱ Time Saved
 
-1. **Webhook Trigger Node** — Listens for POST requests from the Streamlit app
-2. **AI Agent Node (Analysis)** — Analyzes the incoming complaint data
-3. **IF Node** — Checks whether the complaint meets the alert condition (e.g., High priority)
-4. **AI Agent Node (Email Draft)** — Drafts a professional alert email (TRUE branch)
-5. **Email Node** — Sends the email to the manager
-6. **Set Node** — Packages the final answer, email body, and status into a clean JSON
-7. **Respond to Webhook Node** — Returns the packaged JSON back to Streamlit
+Manual processing time:
 
-The workflow must be **activated** and the Production Webhook URL must be stored in Streamlit secrets as `N8N_WEBHOOK_URL`.
+6 minutes = 360 seconds
 
----
+Automated processing time:
 
-## Security
+18 seconds
 
-- All API keys and webhook URLs are stored using `st.secrets` — never hardcoded in the source code
-- The `.streamlit/secrets.toml` file is local only and excluded from version control
-- On Streamlit Cloud, secrets are managed through the secure dashboard
+Time saved per complaint
 
----
+360 − 18 = 342 seconds
 
-## Requirements
+Processing is ~95% faster
 
-```
-streamlit
-pdfplumber
-groq
-requests
-pandas
-```
+📈 Example ROI
 
----
+If a company handles 500 complaints per month:
 
-## Author
+Manual effort:
 
-**Faisal** — Built as part of an end-of-course summative evaluation covering AI integration, workflow automation, and cloud deployment.
+500 × 6 minutes
+= 3000 minutes
+= 50 hours
+
+Automated effort:
+
+500 × 18 seconds
+= 150 minutes
+= 2.5 hours
+Monthly Time Saved
+
+47.5 hours
+
+Annual Time Saved
+
+570 hours
+
+Equivalent to ~14 weeks of full-time operational work eliminated.
+
+🔐 Security
+
+Security best practices implemented:
+
+API keys stored using Streamlit Secrets
+No credentials hardcoded in the codebase
+.streamlit/secrets.toml excluded from version control
+Secure deployment via Streamlit Cloud
+👨‍💻 Author
+
+Faisal Khan
+
+Built as part of an AI and Data Science capstone project demonstrating:
+
+Generative AI integration
+Intelligent document processing
+Business process automation
+End-to-end AI application deployment
+
+✅ This project demonstrates how AI agents combined with workflow automation platforms can transform manual operational processes into scalable intelligent systems.
