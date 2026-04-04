@@ -49,8 +49,11 @@ The system:
 2️⃣ Uses a Large Language Model (LLM) to analyze the complaint
 
 3️⃣ Converts unstructured text into structured JSON insights
+
 4️⃣ Identifies complaint category, urgency, and risk level
+
 5️⃣ Triggers automated escalation workflows
+
 6️⃣ Drafts and sends AI-generated alert emails
 
 All analysis and escalation happens within seconds without manual intervention.
@@ -58,6 +61,7 @@ All analysis and escalation happens within seconds without manual intervention.
 ---
 
 ## ⚙️ System Architecture
+'''
 User Uploads Complaint
         │
         ▼
@@ -86,6 +90,7 @@ n8n Workflow Automation
         └── Email Notification
         ▼
 Manager Alert
+'''
 
 --- 
 
@@ -120,50 +125,53 @@ Returns results back to the Streamlit UI.
 
 
 
+
 Below is the workflow used to orchestrate the automation process.
 
 ![n8n workflow](images/n8n_workflow.png)
 
---- 
+
 
 ## 🔍 Application Workflow
-Step 1 — Upload Complaint
+
+### Step 1 — Upload Complaint
 
 Users upload one or more complaint PDFs through the Streamlit web interface.
 
 The system extracts readable text using pdfplumber.
 
-Step 2 — AI Complaint Analysis
+### Step 2 — AI Complaint Analysis
 
 The extracted complaint text is sent to a Groq-hosted LLaMA 3.3 70B model.
 
 The model returns structured data in JSON format:
-
+'''
 {
  "Complaint Category": "",
  "Priority": "",
  "Short Summary": "",
  "Risk Level": ""
 }
+'''
 
 This converts unstructured text into structured business intelligence.
 
-Step 3 — Structured Complaint Dataset
+### Step 3 — Structured Complaint Dataset
 
 All complaints are compiled into a structured dataset using Pandas.
 
 Field	Description
-Order ID	Order reference
-Customer Name	Complaint owner
-Issue Type	Original issue
-Complaint Category	AI classification
-Priority	High / Medium / Low
-Risk Level	Risk assessment
+Order ID	       Order reference
+Customer Name	       Complaint owner
+Issue Type	       Original issue
+Complaint Category     AI classification
+Priority	       High / Medium / Low
+Risk Level	       Risk assessment
 Summary	AI generated summary
 
 Users can download the dataset as a CSV file for reporting or analytics.
 
-Step 4 — Automated Escalation
+### Step 4 — Automated Escalation
 
 When the complaint priority is High, the system triggers an n8n workflow via webhook.
 
@@ -182,6 +190,7 @@ The application displays four outputs returned by the workflow:
 3️⃣ Generated email body
 4️⃣ Email send status (SENT / NOT SENT)
 
+--- 
 ## 🧠 Tech Stack
 Layer	Technology
 Frontend	Streamlit
@@ -193,6 +202,7 @@ Data Processing	pandas
 API Requests	requests
 Deployment	Streamlit Cloud
 📂 Project Structure
+'''
 customer-complaint-analyzer
 │
 ├── app.py
@@ -201,7 +211,8 @@ customer-complaint-analyzer
 │
 └── images
     └── n8n_workflow.png
-🚀 Deployment
+    '''
+## 🚀 Deployment
 Clone Repository
 git clone https://github.com/Faisal-Ghub/customer-complaint-analyzer.git
 cd customer-complaint-analyzer
@@ -220,7 +231,8 @@ Push repository to GitHub
 Connect repo to Streamlit Cloud
 Add secrets in the Streamlit dashboard
 Application deploys automatically
-📊 Business Impact
+
+## 📊 Business Impact
 
 The automation significantly reduces manual effort and improves response time.
 
@@ -282,7 +294,7 @@ Annual Time Saved
 
 Equivalent to ~14 weeks of full-time operational work eliminated.
 
-🔐 Security
+## 🔐 Security
 
 Security best practices implemented:
 
@@ -290,7 +302,8 @@ API keys stored using Streamlit Secrets
 No credentials hardcoded in the codebase
 .streamlit/secrets.toml excluded from version control
 Secure deployment via Streamlit Cloud
-👨‍💻 Author
+
+## 👨‍💻 Author
 
 Faisal Khan
 
