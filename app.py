@@ -64,11 +64,6 @@ if uploaded_files:
         # ============================================================
         # PHASE 2 — AI Analysis
         # ============================================================
-        order_id_match = re.search(r'#\d+', cleaned_text)
-        order_id = order_id_match.group() if order_id_match else "Not found"
-
-        customer_name_match = re.search(r'—\s*(.*?)\,', cleaned_text)
-        customer_name = customer_name_match.group(1) if customer_name_match else "Not found"
 
         issue = "Unknown"
         if "refund" in cleaned_text.lower():
@@ -81,14 +76,17 @@ if uploaded_files:
         Analyze the following complaint and return a JSON with exactly these keys:
         1. "Complaint Category" (Refund, Delivery Delay, Product Issue, Other)
         2. "Priority" (High, Medium, Low)
-        3. "Short Summary" (1-2 sentences)
+        3. "Short Summary" (maximum 15 words, concise)
         4. "risk_level" (High, Medium, Low) — same as Priority
-        
+        5. "Customer Name" (extract from text, if not found return "Not found")
+        6. "Order ID" (extract any order number or ID from text, if not found return "Not found")
+
         Complaint Text:
         {cleaned_text}
-        
+
         Return ONLY a valid JSON object. No explanation, no markdown, no backticks.
         """
+
 
         with st.spinner(f"Analyzing {uploaded_file.name}..."):
             response = client.chat.completions.create(
@@ -107,7 +105,10 @@ if uploaded_files:
                 ai_data = {}
         except:
             ai_data = {}
-
+            
+        order_id = ai_data.get("Order ID", "Not found")
+        customer_name = ai_data.get("Customer Name", "Not found")
+        
         # Save last ai_data and text for webhook use later
         st.session_state["last_ai_data"] = ai_data
         st.session_state["last_cleaned_text"] = cleaned_text
