@@ -6,7 +6,7 @@ The application uses Generative AI and workflow automation to analyze complaint 
 
 This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipelines.
 
----
+
 
 ## 🎯 Business Problem
 
@@ -36,7 +36,7 @@ Unstructured complaint data hard to analyze trends
 
 For organizations processing hundreds of complaints, this results in slow response times and high operational cost.
 
----
+
 
 ## 💡 Solution
 
@@ -58,10 +58,9 @@ The system:
 
 All analysis and escalation happens within seconds without manual intervention.
 
----
 
 ## ⚙️ System Architecture
-'''
+```
 User Uploads Complaint
         │
         ▼
@@ -90,9 +89,9 @@ n8n Workflow Automation
         └── Email Notification
         ▼
 Manager Alert
-'''
+```
 
---- 
+
 
 ## 🔄 n8n Automation Workflow
 
@@ -145,21 +144,21 @@ The system extracts readable text using pdfplumber.
 The extracted complaint text is sent to a Groq-hosted LLaMA 3.3 70B model.
 
 The model returns structured data in JSON format:
-'''
+```
 {
  "Complaint Category": "",
  "Priority": "",
  "Short Summary": "",
  "Risk Level": ""
 }
-'''
+```
 
 This converts unstructured text into structured business intelligence.
 
 ### Step 3 — Structured Complaint Dataset
 
 All complaints are compiled into a structured dataset using Pandas.
-
+```
 Field	Description
 Order ID	       Order reference
 Customer Name	       Complaint owner
@@ -168,7 +167,7 @@ Complaint Category     AI classification
 Priority	       High / Medium / Low
 Risk Level	       Risk assessment
 Summary	AI generated summary
-
+```
 Users can download the dataset as a CSV file for reporting or analytics.
 
 ### Step 4 — Automated Escalation
@@ -181,28 +180,34 @@ Validates the complaint
 Drafts an escalation email
 Sends an alert to the manager
 Returns the final response to the application
-Step 5 — Final Outputs
+
+### Step 5 — Final Outputs
 
 The application displays four outputs returned by the workflow:
 
 1️⃣ Structured complaint JSON
+
 2️⃣ AI analytical response
+
 3️⃣ Generated email body
+
 4️⃣ Email send status (SENT / NOT SENT)
 
---- 
+
+
 ## 🧠 Tech Stack
-Layer	Technology
-Frontend	Streamlit
-Backend	Python
-PDF Parsing	pdfplumber
-AI Model	Groq API (LLaMA 3.3 70B)
+```
+Layer	                Technology
+Frontend	        Streamlit
+Backend	                Python
+PDF Parsing	        pdfplumber
+AI Model	        Groq API (LLaMA 3.3 70B)
 Workflow Automation	n8n
-Data Processing	pandas
-API Requests	requests
-Deployment	Streamlit Cloud
+Data Processing	        pandas
+API Requests	        requests
+Deployment	        Streamlit Cloud
 📂 Project Structure
-'''
+
 customer-complaint-analyzer
 │
 ├── app.py
@@ -211,8 +216,9 @@ customer-complaint-analyzer
 │
 └── images
     └── n8n_workflow.png
-    '''
+```
 ## 🚀 Deployment
+```
 Clone Repository
 git clone https://github.com/Faisal-Ghub/customer-complaint-analyzer.git
 cd customer-complaint-analyzer
@@ -231,9 +237,9 @@ Push repository to GitHub
 Connect repo to Streamlit Cloud
 Add secrets in the Streamlit dashboard
 Application deploys automatically
-
+```
 ## 📊 Business Impact
-
+```
 The automation significantly reduces manual effort and improves response time.
 
 Traditional Process
@@ -293,7 +299,7 @@ Annual Time Saved
 570 hours
 
 Equivalent to ~14 weeks of full-time operational work eliminated.
-
+```
 ## 🔐 Security
 
 Security best practices implemented:
