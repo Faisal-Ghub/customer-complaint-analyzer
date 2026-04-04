@@ -1,12 +1,14 @@
-🧾 AI-Powered Customer Complaint Analyzer
+# 🧾 AI-Powered Customer Complaint Analyzer
 
-##An end-to-end AI automation system that converts unstructured customer complaint documents into structured insights and automatically triggers escalation workflows.
+An end-to-end AI automation system that converts unstructured customer complaint documents into structured insights and automatically triggers escalation workflows.
 
-#The application uses Generative AI and workflow automation to analyze complaint documents, identify risk levels, and notify managers instantly—eliminating manual complaint triage.
+The application uses Generative AI and workflow automation to analyze complaint documents, identify risk levels, and notify managers instantly—eliminating manual complaint triage.
 
 This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipelines.
+
 ---
-🎯 Business Problem
+
+## 🎯 Business Problem
 
 Organizations receive customer complaints in unstructured formats such as:
 
@@ -34,7 +36,9 @@ Unstructured complaint data	Hard to analyze trends
 
 For organizations processing hundreds of complaints, this results in slow response times and high operational cost.
 
-💡 Solution
+---
+
+##💡 Solution
 
 The AI-Powered Customer Complaint Analyzer automates the entire complaint triage process.
 
