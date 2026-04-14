@@ -8,7 +8,7 @@ This project demonstrates how AI + Business Process Automation (BPA) can transfo
 
 
 
-## 🎯 Business Problem
+## 🎯 Business Problem:
 
 Organizations receive customer complaints in unstructured formats such as:
 
