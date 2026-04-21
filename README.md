@@ -7,7 +7,6 @@ The application uses Generative AI and workflow automation to analyze complaint 
 This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipelines.
 
 
-
 ## 🎯 Business Problem:
 
 Organizations receive customer complaints in unstructured formats such as:
