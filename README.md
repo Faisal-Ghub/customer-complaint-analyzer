@@ -11,7 +11,7 @@ This project demonstrates how AI + Business Process Automation (BPA) can transfo
   d
 Organizations receive customer complaints in unstructured formats such as:
 
-PDFs
+PDFs 
 Emails
 Web form submissions
 Scanned documents
