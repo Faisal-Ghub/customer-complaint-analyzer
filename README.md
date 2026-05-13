@@ -4,7 +4,7 @@ An end-to-end AI automation system that converts unstructured customer complaint
 
 The application uses Generative AI and workflow automation to analyze complaint documents, identify risk levels, and notify managers instantly—eliminating manual complaint triage.
 
-This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipeline
+This project demonstrates how AI + Business Process Automation (BPA) can transform traditional support workflows into fully automated decision pipeline.
 
 
 ## 🎯 Business Problem:
