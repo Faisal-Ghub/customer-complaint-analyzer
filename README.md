@@ -1,6 +1,6 @@
 # 🧾 AI-Powered Customer Complaint Analyzer
 
-An end-to-end AI automation system that converts unstructured customer complaint document into structured insights and automatically triggers escalation workflows.
+An end-to-end AI automation system that converts unstructured customer complaint documents into structured insights and automatically triggers escalation workflows.
 
 The application uses Generative AI and workflow automation to analyze complaint documents, identify risk levels, and notify managers instantly—eliminating manual complaint triage.
 
